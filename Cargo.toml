@@ -13,10 +13,10 @@ description = "benchmark support library"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-env_logger = "*"
-log = "*"
-libc = "*"
+env_logger = "0.6.2"
+log = "0.4.8"
+libc = "0.2.60"
 
 [dev-dependencies]
-rand = "*"
-test-env-log = "*"
+rand = "0.7.0"
+test-env-log = "0.1.0"

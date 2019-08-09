@@ -27,21 +27,25 @@ example
 use benchy::Benchy;
 use std::time::Duration;
 
-for i in Benchy.new_duration(Duration::from_secs(5)) {
+for i in Benchy::new_duration(Duration::from_secs(5)) {
   // some works
 }
 // auto print result to stdout (5 secs after)
+```
 
-let mut bench = Benchy.new_duration(Duration::from_secs(5));
+(TODO)
+
+```
+let mut bench = Benchy::new_duration(Duration::from_secs(5));
 
 for i in bench {
   // some works
 }
 // show detailed result (5 secs after)
-println!("median(50-th percentile): {}", bench.median());
-println!("90-th percentile: {}", bench.percentile(90.0));
-println!("95-th percentile: {}", bench.percentile(95.0));
-println!("99-th percentile: {}", bench.percentile(99.0));
+println!("median(50-th percentile): {}", bench.data.median().unwrap());
+println!("90-th percentile: {}", bench.data.percentile(90.0).unwrap());
+println!("95-th percentile: {}", bench.data.percentile(95.0).unwrap());
+println!("99-th percentile: {}", bench.data.percentile(99.0).unwrap());
 
 // rusage difference (end - start)
 println!("rusage = {} {:?}", bench.usage, bench.usage);

@@ -238,7 +238,9 @@ impl Benchy {
         }
     }
 
-    pub fn finish<'a>(&'a self) {
+    pub fn finish<'a>(&'a mut self) {
+        let cur_usage = rusage::Usage::new_self();
+        self.usage = cur_usage - self.usage;
         println!("{}", self);
     }
 }
@@ -249,7 +251,11 @@ impl Iterator for Benchy {
     fn next(&mut self) -> Option<usize> {
         let now = Instant::now();
         match self.data.cnt {
-            0 => self.data.cnt += 1, // XXX!
+            // XXX!
+            0 => {
+                self.start_at = now;
+                self.data.cnt += 1
+            }
             _ => self.data.register_val((now - self.prev).as_micros()),
         }
         self.prev = now;
@@ -283,9 +289,13 @@ impl Iterator for Benchy {
 impl fmt::Display for Benchy {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let total = (self.prev - self.start_at).as_micros();
-        let cur_usage = rusage::Usage::new_self();
-        let rst_usage = cur_usage - self.usage;
-        writeln!(f, "usage: {:?}", rst_usage).unwrap();
+        writeln!(
+            f,
+            "{title}: usage: {usage}",
+            title = self.title,
+            usage = self.usage
+        )
+        .unwrap();
         writeln!(
             f,
             "{title}: usecs={total}, {data}",

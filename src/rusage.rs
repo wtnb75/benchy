@@ -1,4 +1,5 @@
 use libc::{c_long, getrusage, rusage, suseconds_t, time_t, timeval, RUSAGE_CHILDREN, RUSAGE_SELF};
+use std::fmt;
 use std::ops::Sub;
 
 #[derive(Debug, Copy, Clone)]
@@ -143,5 +144,11 @@ impl Sub for Usage {
         res.nvcsw = self.nvcsw - other.nvcsw;
         res.nivcsw = self.nivcsw - other.nivcsw;
         res
+    }
+}
+
+impl fmt::Display for Usage {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "usr={:.3}, sys={:.3}", self.utime, self.stime)
     }
 }

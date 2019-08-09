@@ -3,6 +3,12 @@ name = "benchy"
 version = "0.1.0"
 authors = ["Takashi WATANABE <wtnb75@gmail.com>"]
 edition = "2018"
+repository = "https://github.com/wtnb75/benchy"
+keywords = ["benchmark", "statistics"]
+license-file = "LICENSE"
+readme = "README.md"
+description = "benchmark support library"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

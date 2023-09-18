@@ -1,5 +1,7 @@
 # Benchmark support library for Rust
 
+(this repository and crate are not mainteined.)
+
 ## Features
 
 - iterator style
